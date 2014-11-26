@@ -1,8 +1,17 @@
 import praw
 import re
+import sys
 
 def doReplies (replies, searchStr):
     for reply in replies:
+
+        #if reply.author:
+        #    if reply.author.name == "drocklin":
+        #        print(reply.body)
+        #
+        #if "2i5uxj" in reply.parent_id:
+        #    print (reply.body)
+
         if re.search(searchStr, reply.body, re.I):
             print ("https://www.reddit.com/message/messages/" + reply.parent_id[3:])
             return True
@@ -29,12 +38,18 @@ if __name__=='__main__':
     # so that reddit wont translate '>' into '&gt;'
     r.config.decode_html_entities = True
 
-    r.login("username", "password")
+    r.login("password", "username")
     print("==============================")
 
 
+    if len(sys.argv) > 1:
+        searchStr = sys.argv[1]
+    else:
+        print ("enter search term on cmd line")
 
-    try:
+
+#    try:
+    if True:
         inbox = r.get_mod_mail(subreddit='books', limit=1000)
 
 
@@ -44,11 +59,17 @@ if __name__=='__main__':
 
             for inboxMsg in inbox:
 
+                if re.search(searchStr, inboxMsg.body, re.I):
+                    print ("https://www.reddit.com/message/messages/" + inboxMsg.fullname[3:])
+                    continue
+
                 if inboxMsg.replies:
-                    doReplies(inboxMsg.replies, "filth")
+                    doReplies(inboxMsg.replies, searchStr)
 
 
-    except Exception as e:
-        print('An error has occured: %s ' % (e))
+#    except Exception as e:
+#        print('An error has occured: %s ' % (e))
+
+
 
 
