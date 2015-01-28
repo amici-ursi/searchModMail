@@ -30,7 +30,7 @@ if __name__=='__main__':
     #
 
 
-    SUBREDDIT = "books"
+    SUBREDDIT = "SUBREDDITNAME"
 
     print("==============================")
 
@@ -38,7 +38,7 @@ if __name__=='__main__':
     # so that reddit wont translate '>' into '&gt;'
     r.config.decode_html_entities = True
 
-    r.login("password", "username")
+    r.login("USERNAME", "PASSWORD")
     print("==============================")
 
 
@@ -50,7 +50,7 @@ if __name__=='__main__':
 
 #    try:
     if True:
-        inbox = r.get_mod_mail(subreddit='books', limit=1000)
+        inbox = r.get_mod_mail(subreddit='SUBREDDITNAME', limit=1000)
 
 
         if not inbox:
